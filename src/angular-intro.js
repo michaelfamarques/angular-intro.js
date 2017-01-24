@@ -83,14 +83,15 @@
                             clearWatches();
                         });
                     }
-
-                    if (scope.ngIntroOnexit) {
-                        intro.onexit(function() {
+                    
+                    intro.onexit(function() {
+                        if (scope.ngIntroOnexit) {
                             scope.ngIntroOnexit.call(this, scope);
                             $timeout(function() {scope.$digest();});
                             clearWatches();
-                        });
-                    }
+                        }
+                        angular.element('body').removeClass('introjs-open');
+                    });                    
 
                     if (scope.ngIntroOnchange) {
                         intro.onchange(function(targetElement){
@@ -113,11 +114,13 @@
                         });
                     }
 
+                    angular.element('body').addClass('introjs-open');
                     if (typeof(step) === 'number') {
                         intro.goToStep(step).start();
                     } else {
                         intro.start();
                     }
+
                 };
 
                 scope.ngIntroHintsMethod = function() {
