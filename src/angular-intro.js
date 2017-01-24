@@ -75,14 +75,15 @@
                         intro.refresh();
                       });
                     }
-
-                    if (scope.ngIntroOncomplete) {
-                        intro.oncomplete(function() {
+                    
+                    intro.oncomplete(function() {
+                        if (scope.ngIntroOncomplete) {
                             scope.ngIntroOncomplete.call(this, scope);
                             $timeout(function() {scope.$digest();});
                             clearWatches();
-                        });
-                    }
+                        }
+                        angular.element('body').removeClass('introjs-open');
+                    });
                     
                     intro.onexit(function() {
                         if (scope.ngIntroOnexit) {
